@@ -1,0 +1,49 @@
+a {
+    text-decoration: none;
+}
+.form {
+    padding: 2em 3em;
+    background: aliceblue;
+    margin-top: 15em;
+    border-radius: 10px;
+}
+.form, p {
+    font-size: 18px;
+}
+.account-no{
+    font-weight: 700;
+}
+.register-form {
+    padding: 2em 3em;
+    background-color: aliceblue;
+    border-radius: 10px;
+}
+.register-container {
+    padding: 6em 18em;
+}
+
+.bill-nav {
+    margin-bottom: 0px;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.heading {
+    background: #a6a6a655;
+    font-size: 14px;
+}
+.sub {
+    border-top: none !important;
+    font-size: 14px;
+}
+.meter-tbl {
+    border: 1px solid #e5e5e5;
+}
+.align-items-center {
+  -ms-flex-align: center!important;
+  align-items: center!important;
+}
+.d-flex {
+  display: -ms-flexbox!important;
+  display: flex!important;
+}
