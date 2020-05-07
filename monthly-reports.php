@@ -48,13 +48,10 @@
                 <a class="nav-link" href="admin.php"><i class="fa fa-home mr-2"></i>Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="clients.php"><i class="fa fa-users mr-2" aria-hidden="true"></i>Clients</a>
+                <a class="nav-link" href="consumers.php"><i class="fa fa-users mr-2" aria-hidden="true"></i>Consumers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="create-bill.php"><i class="fa fa-sticky-note-o mr-2" aria-hidden="true"></i>Create Bill</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="view-records.php"><i class="fa fa-list-ul mr-2" aria-hidden="true"></i>View Records</a>
+                <a class="nav-link" href="announcements.php"><i class="fa fa-bell mr-2" aria-hidden="true"></i>Announcements</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="monthly-reports.php"><i class="fa fa-list-alt mr-2" aria-hidden="true"></i>Monthy Reports</a>
@@ -80,7 +77,7 @@
                 <div style="clear:both"></div>
                 <br />
                 <div id="order_table">
-                    <h3 class="text-center Printable">Monthly Reports</h3></br>
+                    <h3 class="text-center Printable">Monthly Bill Reports</h3></br>
                      <table class="table table-bordered ml-3">
                           <tr>
                             <th>Account #</th>
@@ -94,9 +91,9 @@
                             <th>Date</th>
                           </tr>
                   <?php
-                  $conn = new PDO('mysql:host=localhost;dbname=waterbill', 'root', '');
+                  $conn = new PDO('mysql:host=localhost;dbname=billingsystem', 'root', '');
                   $bill = $conn->query("select
-                    bill_details.account_no,
+                    bill_details.user_id,
                     bill_details.prev,
                     bill_details.pres,
                     bill_details.price,
@@ -104,10 +101,11 @@
                     bill_details.date_from,
                     bill_details.date_to,
                     bill_details.due_date,
-                    client_users.fname,
-                    client_users.lname,
-                    client_users.meter_no
-                    from bill_details JOIN client_users ON bill_details.account_no = client_users.account_no") or die(msql_error());
+                    users.account_no,
+                    users.fname,
+                    users.lname,
+                    users.meter_no
+                    from bill_details JOIN users ON bill_details.user_id = users.id") or die(msql_error());
                     while ($r = $bill->fetch()) {{
                     $name = $r['fname']." ".$r['lname'];
                     $account_no = $r ['account_no'];
@@ -162,7 +160,7 @@
                 if(from_date != '' && to_date != '')
                 {
                      $.ajax({
-                          url:"filterdate.php",
+                          url:"filter-date.php",
                           method:"POST",
                           data:{from_date:from_date, to_date:to_date},
                           success:function(data)

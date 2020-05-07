@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Admin-Water Billing System</title>
+    <title>Water Billing System</title>
 </head>
 <body>
     <form method="post" class="container">
         <div class="container col-lg-6 form">
             <h4>Set Password</h4>
-            <?php $conn = new PDO('mysql:host=localhost;dbname=waterbill', 'root', '');?>
+            <?php $conn = new PDO('mysql:host=localhost;dbname=billingsystem', 'root', '');?>
             <?php include('session.php') ;
-                $query = $conn->query("select * from client_users where id = '$session_id'") or die(mysql_error());
+                $query = $conn->query("select * from users where id = '$session_id'") or die(mysql_error());
                 while ($row = $query->fetch()){
                 {
                   $id = $row['id'];
@@ -43,19 +43,19 @@
 </body>
 </html>
 <?php
-    $conn = new PDO('mysql:host=localhost;dbname=waterbill', 'root', '');
+    $conn = new PDO('mysql:host=localhost;dbname=billingsystem', 'root', '');
     if (isset($_POST['save']))
     {
       $id=$_POST['id'];
       $password=$_POST['password'];
       $registered=$_POST['registered'];
 
-    $conn->query("update client_users set password = '$password',registered = '$registered' where id = '$id'");
+    $conn->query("update users set password = '$password',registered = '$registered' where id = '$id'");
 
     ?>
     echo "<script>
     window.location = 'index.php';
-    alert('Data successfully saved.');
+    alert('Password successfully set.');
     </script>";
     else {
 
