@@ -3,7 +3,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "waterbill";
+    $dbname = "billingsystem";
 
     // create connection
     $con = new mysqli($servername, $username, $password, $dbname);
@@ -20,7 +20,7 @@
 
         $account_no= mysqli_real_escape_string($con,$_POST['account_no']);
 
-        $sql = "SELECT * FROM client_users WHERE account_no = '$account_no' and type ='client' and registered= 'no'";
+        $sql = "SELECT * FROM users WHERE account_no = '$account_no' and type ='client' and registered= 'no'";
         $result = mysqli_query($con,$sql);
         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
         $count = mysqli_num_rows($result);

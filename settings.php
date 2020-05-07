@@ -1,5 +1,5 @@
 <?php
-    $conn = new PDO('mysql:host=localhost;dbname=waterbill', 'root', '');
+    $conn = new PDO('mysql:host=localhost;dbname=billingsystem', 'root', '');
     if (isset($_POST['save']))
     {
       $id=$_POST['id'];
@@ -7,12 +7,12 @@
       $meter_maintenance=$_POST['meter_maintenance'];
       $penalty=$_POST['penalty'];
 
-    $conn->query("update bill_settings set price = '$price',meter_maintenance = '$meter_maintenance', penalty = '$penalty' where id = '$id'");
+    $conn->query("update settings set price = '$price',meter_maintenance = '$meter_maintenance', penalty = '$penalty' where id = '$id'");
 
     ?>
     echo "<script>
     window.location = 'settings.php';
-    alert('Data successfully saved.');
+    alert('Settings successfully saved.');
     </script>";
     else {
 
@@ -54,13 +54,10 @@
             <a class="nav-link" href="admin.php"><i class="fa fa-home mr-2"></i>Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="clients.php"><i class="fa fa-users mr-2" aria-hidden="true"></i>Clients</a>
+            <a class="nav-link" href="consumers.php"><i class="fa fa-users mr-2" aria-hidden="true"></i>Consumers</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="create-bill.php"><i class="fa fa-sticky-note-o mr-2" aria-hidden="true"></i>Create Bill</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="view-records.php"><i class="fa fa-list-ul mr-2" aria-hidden="true"></i>View Records</a>
+            <a class="nav-link" href="announcements.php"><i class="fa fa-bell mr-2" aria-hidden="true"></i>Announcements</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="monthly-reports.php"><i class="fa fa-list-alt mr-2" aria-hidden="true"></i>Monthy Reports</a>
@@ -70,47 +67,52 @@
           </li>
         </ul>
     </div>
-<form method="POST">
-      <div class="container">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-12 col-lg-6">
 
-          <h3 class="mt-5 mb-3">Settings</h3>
-          <?php
-            $conn = new PDO('mysql:host=localhost;dbname=waterbill', 'root', '');
-            $query = $conn->query("select * from bill_settings") or die(mysql_error());
-            while ($row = $query->fetch()){
-            {
-              $id = $row['id'];
-              $price = $row ['price'];
-              $meter_maintenance = $row ['meter_maintenance'];
-              $penalty = $row ['penalty'];
-            }
-            ?>
-          <div class="form-group row">
-            <div class="col-6">
-              <label for="">Rate</label>
-                <input type="text" class="form-control" value = "<?php echo $price; ?>" name="price" >
+          <form method="POST">
+            <div class="card mt-3">
+              <div class="card-body">
+
+                <h3 class="card-title">
+                  Settings
+                </h3>
+                <?php
+                  $conn = new PDO('mysql:host=localhost;dbname=billingsystem', 'root', '');
+                  $query = $conn->query("select * from settings") or die(mysql_error());
+                  while ($row = $query->fetch()){
+                  {
+                    $id = $row['id'];
+                    $price = $row ['price'];
+                    $meter_maintenance = $row ['meter_maintenance'];
+                    $penalty = $row ['penalty'];
+                  }
+                ?>
+                  <div class="form-group">
+                    <label for="">Rate</label>
+                    <input type="text" class="form-control" value = "<?php echo $price; ?>" name="price" >
+                  </div>
+                  <div class="form-group">
+                    <label for="">Meter Maintenance</label>
+                      <input type="text" class="form-control" value = "<?php echo $meter_maintenance; ?>" name="meter_maintenance" >
+                  </div>
+                  <div class="form-group">
+                    <label for="">Penalty After Due</label>
+                      <input type="text" class="form-control" value = "<?php echo $penalty; ?>" name="penalty" >
+                  </div>
+                <?php }?>
+                  <div class="form-group">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                    <button type="submit" name="save" class="btn btn-primary float-right"><i class="fa fa-floppy-o mr-2" aria-hidden="true"></i>Save</button>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-6">
-              <label for="">Meter Maintenance</label>
-                <input type="text" class="form-control" value = "<?php echo $meter_maintenance; ?>" name="meter_maintenance" >
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-6">
-              <label for="">Penalty After Due</label>
-                <input type="text" class="form-control" value = "<?php echo $penalty; ?>" name="penalty" >
-            </div>
-          </div>
-        <?php }?>
-          <div class="form-group col-6">
-            <input type="hidden" name="id" value="<?php echo $id; ?>" />
-            <button type="submit" name="save" class="btn btn-primary float-right">Save</button>
-          </div>
+          </form>
+
+        </div>
       </div>
-    </form>
-
-<?php}?>
+    </div>
 </body>
 </html>

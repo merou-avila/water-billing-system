@@ -3,7 +3,7 @@
   $servername = "localhost";
   $username = "root";
   $password = "";
-  $dbname = "waterbill";
+  $dbname = "billingsystem";
 
   // create connection
   $con = new mysqli($servername, $username, $password, $dbname);
@@ -21,7 +21,7 @@
     $account_no= mysqli_real_escape_string($con,$_POST['account_no']);
     $password = mysqli_real_escape_string($con,$_POST['password']);
 
-    $sql = "SELECT * FROM client_users WHERE account_no = '$account_no' and password = '$password'";
+    $sql = "SELECT * FROM users WHERE account_no = '$account_no' and password = '$password'";
     $result = mysqli_query($con,$sql);
     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
     $type = $row['type'];
@@ -36,7 +36,7 @@
         {
             $_SESSION['id'] = $row['id'];
             // Redirect user to client-bill.php
-            header("Location: client-bill.php");
+            header("Location: consumer/index.php");
         }
         else
         {

@@ -12,8 +12,10 @@ if (!isset($_SESSION['id']) || ($_SESSION['id'] == '')) { ?>
 
 $session_id=$_SESSION['id'];
 date_default_timezone_set('Asia/Manila');
-$query = $conn->query("select * from client_users where id = '$session_id'");
+$query = $conn->query("select * from users where id = '$session_id'");
 $row = $query->fetch();
-$fullname = $row['lname']." ,".$row['fname'] ;
+$id = $row['id'];
+$password = $row['password'];
+$fullname = $row['fname']." ".$row['lname'] ;
 
 ?>
